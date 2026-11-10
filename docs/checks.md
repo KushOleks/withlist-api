@@ -12,7 +12,7 @@
 
 requirements-ci.in додає pytest, httpx і Ruff до наявних залежностей. requirements-ci.txt містить точні версії прямих і транзитивних пакетів з SHA256-хешами; встановлення виконується з --require-hashes. Lockfile враховує Mac і Linux. setup-python кешує pip, ключ залежить від lockfile. Кеш не замінює встановлення пакетів.
 
-Оновлення lockfile (з папки API, uv 0.11.8):
+Оновлення lockfile (з папки API, uv 0.12.14):
 
 ```bash
 uv pip compile requirements-ci.in --python-version 3.11 --universal --generate-hashes -o requirements-ci.txt
