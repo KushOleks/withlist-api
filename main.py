@@ -1,5 +1,7 @@
 import os
 
+from contextlib import asynccontextmanager
+
 from dotenv import load_dotenv
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -11,7 +13,7 @@ import redis
 import json
 
 from database import get_db, engine
-from models import Base, User, WishList, WishItem, WishItemStatus
+from models import Base, User, WishList, WishItem
 from schemas import (
     UserCreate, UserResponse, Token, WishListCreate, WishListResponse,
     WishItemCreate, WishItemResponse, WishItemStatusResponse
@@ -23,9 +25,14 @@ from crud import (
     get_item_statuses
 )
 
-Base.metadata.create_all(bind=engine)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Initialize tables at startup, never while merely importing the module.
+    Base.metadata.create_all(bind=engine)
+    yield
 
-app = FastAPI(title="Wish List API", version="1.0.0")
+
+app = FastAPI(title="Wish List API", version="1.0.0", lifespan=lifespan)
 
 # app.add_middleware(
 #     CORSMiddleware,
@@ -52,8 +59,7 @@ app.add_middleware(
 )
 
 REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
-redis_client = redis.from_url(REDIS_URL, decode_responses=True, ssl_cert_reqs="none")
-# ssl_cert_reqs="none" - Disable SSL certificate verification for Upstash
+redis_client = redis.from_url(REDIS_URL, decode_responses=True)
 
 
 
@@ -277,7 +283,7 @@ async def health_check():
     try:
         redis_client.ping()
         redis_status = "healthy"
-    except:
+    except redis.RedisError:
         redis_status = "unhealthy"
 
     return {
