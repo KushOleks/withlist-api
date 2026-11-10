@@ -42,6 +42,6 @@ export TEST_DATABASE_URL='postgresql://wishlist_ci:ci-only-password@localhost:15
 python -m pytest -v
 ```
 
-На Mac локально підтверджено Ruff та обидва health-сценарії, а також очікуваний провал PostgreSQL-тесту на недоступному порту. Позитивний інтеграційний тест і готовність обох job services перевіряються фактичним запуском GitHub Actions; посилання на результат додається після завершення.
+На Mac локально підтверджено Ruff та обидва health-сценарії, а також очікуваний провал PostgreSQL-тесту на недоступному порту. Позитивний інтеграційний тест і готовність обох job services підтверджено успішним [запуском GitHub Actions](https://github.com/KushOleks/withlist-api/actions/runs/42894806678) у [PR №1](https://github.com/KushOleks/withlist-api/pull/1): Ruff пройшов, усі 3 pytest-сценарії пройшли, негативна перевірка PostgreSQL пройшла як очікуваний провал тесту. Review Porchuk і merge ще не виконувалися.
 
 Завдання №3–5, required checks, rulesets і бонуси в цьому етапі не виконуються. Цей конвеєр ще не забороняє merge — це налаштовується окремо в завданні №4.
