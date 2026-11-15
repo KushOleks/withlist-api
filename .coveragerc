@@ -1,0 +1,11 @@
+[run]
+source = .
+omit =
+    tests/*
+    .venv/*
+    venv/*
+    migrations/*
+    alembic/*
+
+[report]
+show_missing = True
