@@ -59,3 +59,8 @@ out/
 *.pid.lock
 
 *.DS_Store
+
+# Generated test coverage
+.coverage
+coverage.xml
+htmlcov/
