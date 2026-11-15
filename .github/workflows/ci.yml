@@ -55,7 +55,6 @@ jobs:
           --health-retries 20
     env:
       DATABASE_URL: postgresql://wishlist_ci:ci-only-password@localhost:5432/wishlist_test
-      TEST_DATABASE_URL: postgresql://wishlist_ci:ci-only-password@localhost:5432/wishlist_test
       REDIS_URL: redis://localhost:6379/0
       SECRET_KEY: ci-only-key-not-used-outside-tests
       ALGORITHM: HS256
@@ -74,7 +73,7 @@ jobs:
           import os
           import psycopg2
           import redis
-          with psycopg2.connect(os.environ["TEST_DATABASE_URL"], connect_timeout=5) as connection:
+          with psycopg2.connect(os.environ["DATABASE_URL"], connect_timeout=5) as connection:
               with connection.cursor() as cursor:
                   cursor.execute("SELECT 1")
                   assert cursor.fetchone() == (1,)
@@ -85,7 +84,7 @@ jobs:
         run: python -m pytest -v
       - name: Verify PostgreSQL test fails without database
         env:
-          TEST_DATABASE_URL: postgresql://wishlist_ci:ci-only-password@127.0.0.1:1/wishlist_test
+          DATABASE_URL: postgresql://wishlist_ci:ci-only-password@127.0.0.1:1/wishlist_test
         run: |
           set +e
           python -m pytest tests/test_postgres.py -q > /tmp/postgres-unavailable.log 2>&1
