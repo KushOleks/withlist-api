@@ -42,9 +42,9 @@ export DATABASE_URL='postgresql://wishlist_ci:ci-only-password@localhost:15433/w
 python -m pytest -v
 ```
 
-На Mac локально підтверджено Ruff та обидва health-сценарії, а також очікуваний провал PostgreSQL-тесту на недоступному порту. Позитивний інтеграційний тест і готовність обох job services підтверджено успішним [запуском GitHub Actions](https://github.com/KushOleks/withlist-api/actions/runs/42894806678) у [PR №1](https://github.com/KushOleks/withlist-api/pull/1): Ruff пройшов, усі 3 pytest-сценарії пройшли, негативна перевірка PostgreSQL пройшла як очікуваний провал тесту. Review Porchuk і merge ще не виконувалися.
+На Mac локально підтверджено Ruff та обидва health-сценарії, а також очікуваний провал PostgreSQL-тесту на недоступному порту. Позитивний інтеграційний тест і готовність обох job services підтверджено успішним [запуском GitHub Actions](https://github.com/KushOleks/withlist-api/actions/runs/42894806678) у [PR №1](https://github.com/KushOleks/withlist-api/pull/1): Ruff пройшов, усі 3 pytest-сценарії пройшли, негативна перевірка PostgreSQL пройшла як очікуваний провал тесту. Попередній API PR №1 уже злитий у main.
 
-Завдання №3–5, required checks, rulesets і бонуси в цьому етапі не виконуються. Цей конвеєр ще не забороняє merge — це налаштовується окремо в завданні №4.
+Цей розділ описує первинний конвеєр API. Поточні rulesets і докази завдань №4–5 наведено нижче. Бонуси не виконувалися.
 
 ## Завдання №4 — обов’язкові перевірки main
 
@@ -70,7 +70,7 @@ python -m pytest -v
 
 ![Успішні required checks і доступне злиття](assets/03-passed.png)
 
-Зелений стан і схвалення фіксуються перед злиттям; скриншот буде додано після фактичної перевірки.
+[Виправлений прогін](https://github.com/KushOleks/withlist-api/actions/runs/43745991071) успішний. Скриншот показує той самий PR після виправлення, схвалення з акаунта Porchuk, зелені required checks і активну кнопку Merge pull request. Зображення збережено до злиття; після додавання файлів доказів CI й review повторюються.
 
 ## Завдання №5 — фактичний ефект кешу
 
