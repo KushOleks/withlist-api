@@ -21,7 +21,7 @@ uv pip compile requirements-ci.in --python-version 3.11 --universal --generate-h
 ## Тести
 
 - test_health.py: два сценарії доступності Redis. З'єднання main.engine.connect заборонено; /health має відповідати без PostgreSQL. Redis тут підмінено для передбачуваної перевірки обох станів.
-- test_postgres.py: створює користувача та список у справжній PostgreSQL, очищує ORM identity map, викликає GET /wishlists/{id} і перевіряє отримані id/title. get_db підключено до реальної тестової транзакції; SQL не підмінено. Після тесту транзакція відкочується. Тест вимагає явний TEST_DATABASE_URL із назвою бази, що закінчується на _test, і не використовує робочу базу з .env.
+- test_postgres.py: створює користувача та список у справжній PostgreSQL, очищує ORM identity map, викликає GET /wishlists/{id} і перевіряє отримані id/title. get_db підключено до реальної тестової транзакції; SQL не підмінено. Після тесту транзакція відкочується. Тест вимагає явний DATABASE_URL із назвою бази, що закінчується на _test, і не використовує робочу базу з .env.
 
 Створення таблиць перенесено з імпорту main.py в lifespan FastAPI. Під час звичайного старту таблиці створюються, але імпорт модуля та запит health у unit-тесті не потребують бази.
 
@@ -38,7 +38,7 @@ python -m pytest tests/test_health.py -v
 Для повного pytest потрібна окрема PostgreSQL-база wishlist_test (не wishlist із завдання №1):
 
 ```bash
-export TEST_DATABASE_URL='postgresql://wishlist_ci:ci-only-password@localhost:15433/wishlist_test'
+export DATABASE_URL='postgresql://wishlist_ci:ci-only-password@localhost:15433/wishlist_test'
 python -m pytest -v
 ```
 

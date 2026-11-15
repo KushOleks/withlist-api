@@ -14,8 +14,8 @@ from models import Base, User, WishList
 
 @pytest.mark.integration
 def test_wishlist_endpoint_reads_real_postgres():
-    # Mandatory explicit test URL: never fall back to the developer's .env.
-    url = os.environ["TEST_DATABASE_URL"]
+    # Share the application URL, but refuse any non-test database.
+    url = os.environ["DATABASE_URL"]
     parsed = make_url(url)
     assert parsed.get_backend_name() == "postgresql"
     assert parsed.database.endswith("_test"), "Use a dedicated *_test database"
