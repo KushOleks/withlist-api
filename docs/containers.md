@@ -37,7 +37,7 @@ Compose відхиляє відсутній/порожній POSTGRES_PASSWORD �
 
 ## Образ API
 
-Python 3.12.12-slim-bookworm, залежності встановлюються до копіювання коду з --no-cache-dir.
+Python 3.12.12-slim-bookworm, залежності встановлюються до копіювання коду з --no-cache-dir і --require-hashes за requirements-runtime.txt.
 Процес працює від appuser (UID 10001), слухає 0.0.0.0:8000, CMD має exec-форму.
 Копіюються лише потрібні Python-модулі. .dockerignore виключає env-файли, Git, тести й кеші.
 Конфігурація БД, JWT, Redis і CORS надходить тільки зі змінних середовища.
@@ -64,6 +64,8 @@ docker buildx imagetools inspect ghcr.io/kusholeks/wishlist-api:1.0.0
 ```bash
 docker compose -f compose.yaml -f compose.dev.yaml --profile dev up --build --watch
 ```
+
+Після зміни вимог оновіть lock: `uv pip compile requirements.txt --python-version 3.12 --universal --generate-hashes -o requirements-runtime.txt`.
 
 API використовує develop.watch: sync+restart для коду й rebuild для requirements.txt.
 Dockerignore не дає синхронізувати .env та Git. UI монтує вихідний каталог у /app,

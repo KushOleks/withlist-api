@@ -11,11 +11,14 @@ services:
           target: /app
           ignore:
             - requirements.txt
+            - requirements-runtime.txt
             - Dockerfile
             - Dockerfile.dev
             - compose*.yaml
         - action: rebuild
           path: requirements.txt
+        - action: rebuild
+          path: requirements-runtime.txt
   ui:
     profiles: [dev]
     build:

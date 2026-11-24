@@ -1,8 +1,8 @@
 FROM python:3.12.12-slim-bookworm AS runtime
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
 WORKDIR /app
-COPY requirements.txt ./
-RUN python -m pip install --no-cache-dir -r requirements.txt \
+COPY requirements.txt requirements-runtime.txt ./
+RUN python -m pip install --no-cache-dir --require-hashes -r requirements-runtime.txt \
     && useradd --create-home --uid 10001 appuser \
     && chown appuser:appuser /app
 COPY --chown=appuser:appuser auth.py crud.py database.py main.py models.py schemas.py ./
