@@ -1,24 +1,10 @@
-FROM python:3.11-slim
-
+# Legacy entry point; prefer compose.dev.yaml and Dockerfile target development.
+FROM python:3.12.12-slim-bookworm
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt && useradd --create-home --uid 10001 appuser && chown appuser:appuser /app
+COPY --chown=appuser:appuser auth.py crud.py database.py main.py models.py schemas.py ./
+USER appuser
 EXPOSE 8000
-
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
-
-#docker build -f Dockerfile.dev -t fastapi-app-dev .
-#docker run -p 8000:8000 -v $(pwd):/app fastapi-app-dev
-# docker run -d \
-#  --name fastapi-dev \
-#  --link zen_lamport:zen_lamport \
-#  --link redis-stack-server:redis-stack-server \
-#  -p 8000:8000 \
-#  -v $(pwd):/app \
-#  --env-file .env.docker \
-#  fastapi-app-dev

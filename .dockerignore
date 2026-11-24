@@ -1,65 +1,28 @@
-# Python cache
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.db
-
-# Virtual environments
+.git
+.github
 .env
+.env.*
+**/.env
+**/.env.*
+node_modules
 .venv
-venv/
-ENV/
-env/
-
-# Alembic cache
-alembic/*.pyc
-alembic/__pycache__/
-alembic/versions/__pycache__/
-
-# Logs
-*.log
-
-# Build / distribution
-dist/
-build/
-*.egg-info/
-.eggs/
-
-# Tests / Coverage
+venv
+env
+__pycache__
+**/__pycache__
+*.py[cod]
+tests
+.pytest_cache
+.ruff_cache
 .coverage
-.pytest_cache/
-htmlcov/
 coverage.xml
-.tox/
-
-# Type checker
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Git / VCS
-.git/
-.gitignore
-.gitattributes
-
-# IDE / Editor
-.vscode/
-.idea/
-*.swp
-*.swo
-*.iml
+htmlcov
+docs
+reports
+dist
+build
+*.egg-info
+*.log
 .DS_Store
-
-# Documentation
-*.md
-docs/
-README.md
-
-# CI/CD
-.github/
-.gitlab-ci.yml
-
-# Other
-*.sqlite
-*.sqlite3
+.idea
+.vscode
