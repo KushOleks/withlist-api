@@ -1,6 +1,7 @@
 # Docker Compose 2.24.4+; use together with compose.yaml and --profile dev.
 services:
   api:
+    image: wishlist-api:lab05-dev
     profiles: [dev]
     build:
       target: development
@@ -20,6 +21,7 @@ services:
         - action: rebuild
           path: requirements-runtime.txt
   ui:
+    image: wishlist-ui:lab05-dev
     profiles: [dev]
     build:
       target: development

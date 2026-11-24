@@ -44,9 +44,22 @@ Python 3.12.12-slim-bookworm, залежності встановлюються 
 
 ## Перевірки та докази
 
-Фактичні результати збірок, кешу, stop, збереження/видалення тестового тому,
-діагностики та multi-arch manifest буде додано після виконання перевірок.
-Наведені нижче команди — інструкція, а не заява про завершений результат.
+На Mac M1 перевірено: appuser, відсутність .env/.git/tests у /app,
+усі чотири сервіси healthy, порти PostgreSQL/Redis не опубліковані.
+API stop: **0,567 секунди**. Після додавання одного коментаря до main.py шар pip install
+має CACHED; початковий файл відновлено. [Повний лог кешу](containers-assets/api-cache-proof.log).
+
+[Повний лог перевірки тому](containers-assets/volume-proof.log):
+- POST /wishlists створив запис id=1 з title `Lab05 named volume proof`;
+- після down та up GET /wishlists/1 повернув 200 із тим самим title;
+- після down -v та up GET /wishlists/1 повернув 404: видалено named volume лише disposable project.
+Робочий lab05-wishlist та старий lab04-wishlist не видалялися.
+
+Через браузер створено користувача, список і бажання у контейнерному UI.
+Оновлення глибокого маршруту /wishlists/1 зберігає сторінку й дані:
+![UI отримує дані від API](containers-assets/ui-stack.png)
+
+Multi-arch manifest та скриншот GHCR буде додано після фактичної публікації.
 
 ```bash
 docker run --rm wishlist-api:lab05-local whoami
@@ -81,3 +94,54 @@ Job API image (Docker) залежить від тестів. На PR збірк�
 Вхід у GHCR — GITHUB_TOKEN, permissions задаються явно, PAT не використовується.
 Окремий advisory job Trivy не входить до required checks; JSON-звіт зберігається артефактом.
 У Summary цього job автоматично порівнюються OS-пакети та бібліотеки застосунку.
+
+## Trivy — контрольний PR-прогін
+
+[API CI 45494531646](https://github.com/KushOleks/withlist-api/actions/runs/45494531646)
+містить артефакт wishlist-api-trivy. JSON дав 512 записів у OS-пакетах та 52 у Python-залежностях.
+Більшість знахідок походить із базового OS-образу. Це кількість записів пакет/CVE,
+а не унікальних CVE; результат залежить від дати бази Trivy.
+
+## Бонус 1 — перевірений режим розробки
+
+На тому самому Docker engine фактично перевірено:
+- зміна відповіді /health синхронізувалася через Compose Watch і restart; image ID API не змінився;
+- зміна тексту Welcome.vue з’явилася у відповіді Vite; image ID UI не змінився;
+- додавання коментаря до requirements.txt запустило rebuild та recreate API, image ID змінився.
+Після перевірки вихідні файли відновлено. Dev-образи мають окремі теги lab05-dev,
+тому не перезаписують production lab05-local.
+
+## Завдання 5 — діагностика невідомої поломки
+
+Оператор обрав поломку інтерактивним scripts/diagnostic-exercise.py в окремому
+project lab05-diagnostic і не повідомляв другий вибір до завершення діагностики.
+Файл із вибором не читався; перевірялися фактичні симптоми запущеного контейнера.
+
+Знайдена причина: Uvicorn слухав **127.0.0.1:8000 всередині контейнера**.
+Це крок 3 чеклиста лекції 5 «Сервіс піднявся, але недоступний»: перевірити bind-адресу.
+
+Фактичні спостереження:
+
+```text
+$ curl --max-time 5 -s -o /dev/null -w 'External API HTTP=%{http_code}\n' http://localhost:19000/health
+External API HTTP=000
+$ docker compose -p lab05-diagnostic --env-file .env.lab05 -f compose.yaml ps
+api  Up (healthy)  127.0.0.1:19000->8000/tcp
+postgres  Up (healthy)
+redis  Up (healthy)
+ui  Up (healthy)  127.0.0.1:19080->80/tcp
+$ docker port lab05-diagnostic-api-1
+8000/tcp -> 127.0.0.1:19000
+$ docker inspect lab05-diagnostic-api-1 --format 'State={{.State.Status}} Health={{.State.Health.Status}} RestartCount={{.RestartCount}}'
+State=running Health=healthy RestartCount=0
+$ docker exec lab05-diagnostic-api-1 python -c "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:8000/health').status)"
+200
+$ docker exec lab05-diagnostic-api-1 python -c "from pathlib import Path; print(Path('/proc/1/cmdline').read_bytes().replace(bytes([0]),b' ').decode())"
+/usr/local/bin/python /usr/local/bin/uvicorn main:app --host 127.0.0.1 --port 8000
+```
+
+У /proc/net/tcp для порту 8000 був LISTEN `0100007F:1F40` — IPv4 loopback.
+Healthcheck теж звертається до loopback, тому був зеленим і не доводив зовнішню доступність.
+Виправлення: повторний up API лише з базовим compose.yaml відновив CMD із --host 0.0.0.0.
+Після виправлення зовнішній GET http://localhost:19000/health повернув 200 і redis=healthy.
+Для slim-образу без ss/netstat використано /proc/1/cmdline та /proc/net/tcp.
