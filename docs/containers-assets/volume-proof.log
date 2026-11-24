@@ -1,0 +1,181 @@
+$ docker compose -p lab05-volume-proof up -d --wait --wait-timeout 120
+ Network lab05-volume-proof_default Creating 
+ Network lab05-volume-proof_default Created 
+ Volume lab05-volume-proof_postgres_data Creating 
+ Volume lab05-volume-proof_postgres_data Created 
+ Container lab05-volume-proof-postgres-1 Creating 
+ Container lab05-volume-proof-redis-1 Creating 
+ Container lab05-volume-proof-postgres-1 Created 
+ Container lab05-volume-proof-redis-1 Created 
+ Container lab05-volume-proof-api-1 Creating 
+ Container lab05-volume-proof-api-1 Created 
+ Container lab05-volume-proof-ui-1 Creating 
+ Container lab05-volume-proof-ui-1 Created 
+ Container lab05-volume-proof-postgres-1 Starting 
+ Container lab05-volume-proof-redis-1 Starting 
+ Container lab05-volume-proof-redis-1 Started 
+ Container lab05-volume-proof-postgres-1 Started 
+ Container lab05-volume-proof-postgres-1 Waiting 
+ Container lab05-volume-proof-redis-1 Waiting 
+ Container lab05-volume-proof-postgres-1 Healthy 
+ Container lab05-volume-proof-redis-1 Healthy 
+ Container lab05-volume-proof-api-1 Starting 
+ Container lab05-volume-proof-api-1 Started 
+ Container lab05-volume-proof-api-1 Waiting 
+ Container lab05-volume-proof-api-1 Healthy 
+ Container lab05-volume-proof-ui-1 Starting 
+ Container lab05-volume-proof-ui-1 Started 
+ Container lab05-volume-proof-ui-1 Waiting 
+ Container lab05-volume-proof-postgres-1 Waiting 
+ Container lab05-volume-proof-redis-1 Waiting 
+ Container lab05-volume-proof-api-1 Waiting 
+ Container lab05-volume-proof-api-1 Healthy 
+ Container lab05-volume-proof-postgres-1 Healthy 
+ Container lab05-volume-proof-redis-1 Healthy 
+ Container lab05-volume-proof-ui-1 Healthy 
+
+
+POST /wishlists -> {"id": 1, "title": "Lab05 named volume proof"}
+
+$ docker compose -p lab05-volume-proof down
+ Container lab05-volume-proof-ui-1 Stopping 
+ Container lab05-volume-proof-ui-1 Stopped 
+ Container lab05-volume-proof-ui-1 Removing 
+ Container lab05-volume-proof-ui-1 Removed 
+ Container lab05-volume-proof-api-1 Stopping 
+ Container lab05-volume-proof-api-1 Stopped 
+ Container lab05-volume-proof-api-1 Removing 
+ Container lab05-volume-proof-api-1 Removed 
+ Container lab05-volume-proof-redis-1 Stopping 
+ Container lab05-volume-proof-postgres-1 Stopping 
+ Container lab05-volume-proof-redis-1 Stopped 
+ Container lab05-volume-proof-redis-1 Removing 
+ Container lab05-volume-proof-redis-1 Removed 
+ Container lab05-volume-proof-postgres-1 Stopped 
+ Container lab05-volume-proof-postgres-1 Removing 
+ Container lab05-volume-proof-postgres-1 Removed 
+ Network lab05-volume-proof_default Removing 
+ Network lab05-volume-proof_default Removed 
+
+
+$ docker compose -p lab05-volume-proof up -d --wait --wait-timeout 120
+ Network lab05-volume-proof_default Creating 
+ Network lab05-volume-proof_default Created 
+ Container lab05-volume-proof-redis-1 Creating 
+ Container lab05-volume-proof-postgres-1 Creating 
+ Container lab05-volume-proof-postgres-1 Created 
+ Container lab05-volume-proof-redis-1 Created 
+ Container lab05-volume-proof-api-1 Creating 
+ Container lab05-volume-proof-api-1 Created 
+ Container lab05-volume-proof-ui-1 Creating 
+ Container lab05-volume-proof-ui-1 Created 
+ Container lab05-volume-proof-redis-1 Starting 
+ Container lab05-volume-proof-postgres-1 Starting 
+ Container lab05-volume-proof-redis-1 Started 
+ Container lab05-volume-proof-postgres-1 Started 
+ Container lab05-volume-proof-redis-1 Waiting 
+ Container lab05-volume-proof-postgres-1 Waiting 
+ Container lab05-volume-proof-redis-1 Healthy 
+ Container lab05-volume-proof-postgres-1 Healthy 
+ Container lab05-volume-proof-api-1 Starting 
+ Container lab05-volume-proof-api-1 Started 
+ Container lab05-volume-proof-api-1 Waiting 
+ Container lab05-volume-proof-api-1 Healthy 
+ Container lab05-volume-proof-ui-1 Starting 
+ Container lab05-volume-proof-ui-1 Started 
+ Container lab05-volume-proof-ui-1 Waiting 
+ Container lab05-volume-proof-postgres-1 Waiting 
+ Container lab05-volume-proof-redis-1 Waiting 
+ Container lab05-volume-proof-api-1 Waiting 
+ Container lab05-volume-proof-postgres-1 Healthy 
+ Container lab05-volume-proof-api-1 Healthy 
+ Container lab05-volume-proof-redis-1 Healthy 
+ Container lab05-volume-proof-ui-1 Healthy 
+
+
+After down/up GET /wishlists/1 -> 200, same title
+
+$ docker compose -p lab05-volume-proof down -v
+ Container lab05-volume-proof-ui-1 Stopping 
+ Container lab05-volume-proof-ui-1 Stopped 
+ Container lab05-volume-proof-ui-1 Removing 
+ Container lab05-volume-proof-ui-1 Removed 
+ Container lab05-volume-proof-api-1 Stopping 
+ Container lab05-volume-proof-api-1 Stopped 
+ Container lab05-volume-proof-api-1 Removing 
+ Container lab05-volume-proof-api-1 Removed 
+ Container lab05-volume-proof-redis-1 Stopping 
+ Container lab05-volume-proof-postgres-1 Stopping 
+ Container lab05-volume-proof-postgres-1 Stopped 
+ Container lab05-volume-proof-postgres-1 Removing 
+ Container lab05-volume-proof-postgres-1 Removed 
+ Container lab05-volume-proof-redis-1 Stopped 
+ Container lab05-volume-proof-redis-1 Removing 
+ Container lab05-volume-proof-redis-1 Removed 
+ Network lab05-volume-proof_default Removing 
+ Volume lab05-volume-proof_postgres_data Removing 
+ Volume lab05-volume-proof_postgres_data Removed 
+ Network lab05-volume-proof_default Removed 
+
+
+$ docker compose -p lab05-volume-proof up -d --wait --wait-timeout 120
+ Network lab05-volume-proof_default Creating 
+ Network lab05-volume-proof_default Created 
+ Volume lab05-volume-proof_postgres_data Creating 
+ Volume lab05-volume-proof_postgres_data Created 
+ Container lab05-volume-proof-redis-1 Creating 
+ Container lab05-volume-proof-postgres-1 Creating 
+ Container lab05-volume-proof-postgres-1 Created 
+ Container lab05-volume-proof-redis-1 Created 
+ Container lab05-volume-proof-api-1 Creating 
+ Container lab05-volume-proof-api-1 Created 
+ Container lab05-volume-proof-ui-1 Creating 
+ Container lab05-volume-proof-ui-1 Created 
+ Container lab05-volume-proof-redis-1 Starting 
+ Container lab05-volume-proof-postgres-1 Starting 
+ Container lab05-volume-proof-redis-1 Started 
+ Container lab05-volume-proof-postgres-1 Started 
+ Container lab05-volume-proof-postgres-1 Waiting 
+ Container lab05-volume-proof-redis-1 Waiting 
+ Container lab05-volume-proof-postgres-1 Healthy 
+ Container lab05-volume-proof-redis-1 Healthy 
+ Container lab05-volume-proof-api-1 Starting 
+ Container lab05-volume-proof-api-1 Started 
+ Container lab05-volume-proof-api-1 Waiting 
+ Container lab05-volume-proof-api-1 Healthy 
+ Container lab05-volume-proof-ui-1 Starting 
+ Container lab05-volume-proof-ui-1 Started 
+ Container lab05-volume-proof-postgres-1 Waiting 
+ Container lab05-volume-proof-redis-1 Waiting 
+ Container lab05-volume-proof-api-1 Waiting 
+ Container lab05-volume-proof-ui-1 Waiting 
+ Container lab05-volume-proof-api-1 Healthy 
+ Container lab05-volume-proof-redis-1 Healthy 
+ Container lab05-volume-proof-postgres-1 Healthy 
+ Container lab05-volume-proof-ui-1 Healthy 
+
+
+After down -v/up GET /wishlists/1 -> 404: disposable named volume was deleted
+
+$ docker compose -p lab05-volume-proof down -v
+ Container lab05-volume-proof-ui-1 Stopping 
+ Container lab05-volume-proof-ui-1 Stopped 
+ Container lab05-volume-proof-ui-1 Removing 
+ Container lab05-volume-proof-ui-1 Removed 
+ Container lab05-volume-proof-api-1 Stopping 
+ Container lab05-volume-proof-api-1 Stopped 
+ Container lab05-volume-proof-api-1 Removing 
+ Container lab05-volume-proof-api-1 Removed 
+ Container lab05-volume-proof-postgres-1 Stopping 
+ Container lab05-volume-proof-redis-1 Stopping 
+ Container lab05-volume-proof-postgres-1 Stopped 
+ Container lab05-volume-proof-postgres-1 Removing 
+ Container lab05-volume-proof-postgres-1 Removed 
+ Container lab05-volume-proof-redis-1 Stopped 
+ Container lab05-volume-proof-redis-1 Removing 
+ Container lab05-volume-proof-redis-1 Removed 
+ Network lab05-volume-proof_default Removing 
+ Volume lab05-volume-proof_postgres_data Removing 
+ Volume lab05-volume-proof_postgres_data Removed 
+ Network lab05-volume-proof_default Removed 
+

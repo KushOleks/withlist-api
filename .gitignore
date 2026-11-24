@@ -64,3 +64,10 @@ out/
 .coverage
 coverage.xml
 htmlcov/
+
+# Local environment files
+.env*
+!.env.example
+
+# Local diagnostic exercise selection
+.lab05-diagnostic.yaml

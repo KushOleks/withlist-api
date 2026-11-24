@@ -1,0 +1,39 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 893B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12.12-slim-bookworm
+#2 DONE 0.6s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 278B done
+#3 DONE 0.0s
+
+#4 [runtime 1/5] FROM docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 9.56kB done
+#5 DONE 0.0s
+
+#6 [runtime 2/5] WORKDIR /app
+#6 CACHED
+
+#7 [runtime 3/5] COPY requirements.txt requirements-runtime.txt ./
+#7 CACHED
+
+#8 [runtime 4/5] RUN python -m pip install --no-cache-dir --require-hashes -r requirements-runtime.txt     && useradd --create-home --uid 10001 appuser     && chown appuser:appuser /app
+#8 CACHED
+
+#9 [runtime 5/5] COPY --chown=appuser:appuser auth.py crud.py database.py main.py models.py schemas.py ./
+#9 DONE 0.0s
+
+#10 exporting to image
+#10 exporting layers done
+#10 writing image sha256:e2b22ae360d10d18046afbd8eac4e500696e0f8c69623c2615a79bcba7457478 done
+#10 naming to docker.io/library/wishlist-api:lab05-cache-proof done
+#10 DONE 0.0s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/q351qrda3ba476yezuulaea2j
