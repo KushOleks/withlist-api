@@ -1,0 +1,24 @@
+1.0.0: Pulling from kusholeks/wishlist-api
+eb04ef52de3a: Already exists
+2a131c235be7: Already exists
+7d7d63e37187: Already exists
+b00559a184b3: Already exists
+8370e740886f: Pulling fs layer
+396dbfd0ad4f: Pulling fs layer
+57f8a26e953c: Pulling fs layer
+12d6264ae308: Pulling fs layer
+12d6264ae308: Waiting
+8370e740886f: Verifying Checksum
+8370e740886f: Download complete
+8370e740886f: Pull complete
+396dbfd0ad4f: Download complete
+396dbfd0ad4f: Pull complete
+12d6264ae308: Verifying Checksum
+12d6264ae308: Download complete
+57f8a26e953c: Verifying Checksum
+57f8a26e953c: Download complete
+57f8a26e953c: Pull complete
+12d6264ae308: Pull complete
+Digest: sha256:b9bcbc60371420bea46e35abb04dcbc6cd173de48c4a4afe85d305b029a6fdb0
+Status: Downloaded newer image for ghcr.io/kusholeks/wishlist-api:1.0.0
+ghcr.io/kusholeks/wishlist-api:1.0.0
