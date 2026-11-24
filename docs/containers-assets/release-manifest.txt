@@ -1,0 +1,26 @@
+Name:      ghcr.io/kusholeks/wishlist-api:1.0.0
+MediaType: application/vnd.oci.image.index.v1+json
+Digest:    sha256:b9bcbc60371420bea46e35abb04dcbc6cd173de48c4a4afe85d305b029a6fdb0
+           
+Manifests: 
+  Name:        ghcr.io/kusholeks/wishlist-api:1.0.0@sha256:9094aee35f88a4e137ecbada5cbcedd6b3d25d34185208b55fd5ef3400d0c280
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/amd64
+               
+  Name:        ghcr.io/kusholeks/wishlist-api:1.0.0@sha256:51b893347e324093e36acef126961d60482cf62c3ecb6acca6e8ce2b39b76f18
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    linux/arm64
+               
+  Name:        ghcr.io/kusholeks/wishlist-api:1.0.0@sha256:7b7e5deec28b6ba586e766d3b3ac0b6f89b5ad7a1c43cea9bdc9b18899f06c63
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest: sha256:9094aee35f88a4e137ecbada5cbcedd6b3d25d34185208b55fd5ef3400d0c280
+    vnd.docker.reference.type:   attestation-manifest
+               
+  Name:        ghcr.io/kusholeks/wishlist-api:1.0.0@sha256:44d176c3682366dcb96f5fd8e9ff54277c72983fa8730f6af52ae4131c50bcdc
+  MediaType:   application/vnd.oci.image.manifest.v1+json
+  Platform:    unknown/unknown
+  Annotations: 
+    vnd.docker.reference.digest: sha256:51b893347e324093e36acef126961d60482cf62c3ecb6acca6e8ce2b39b76f18
+    vnd.docker.reference.type:   attestation-manifest

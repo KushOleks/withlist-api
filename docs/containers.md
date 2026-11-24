@@ -59,7 +59,20 @@ API stop: **0,567 секунди**. Після додавання одного �
 Оновлення глибокого маршруту /wishlists/1 зберігає сторінку й дані:
 ![UI отримує дані від API](containers-assets/ui-stack.png)
 
-Multi-arch manifest та скриншот GHCR буде додано після фактичної публікації.
+[Реліз v1.0.0](https://github.com/KushOleks/withlist-api/releases/tag/v1.0.0) опублікований.
+[Публічний пакет](https://github.com/KushOleks/withlist-api/pkgs/container/wishlist-api)
+має теги main, sha-<повний коміт>, 1.0.0, 1.0, 1 та latest.
+
+![Публічний пакет GHCR та теги](containers-assets/ghcr-package.png)
+
+[Повний manifest](containers-assets/release-manifest.txt) містить linux/amd64 і linux/arm64
+під одним тегом 1.0.0. Digest індексу:
+`sha256:b9bcbc60371420bea46e35abb04dcbc6cd173de48c4a4afe85d305b029a6fdb0`.
+unknown/unknown записи є attestations, а не додатковими архітектурами.
+[Анонімний pull](containers-assets/anonymous-pull.txt) виконано з порожнім DOCKER_CONFIG
+без auth; docker login не виконувався.
+[Релізний CI](https://github.com/KushOleks/withlist-api/actions/runs/45497369021).
+
 
 ```bash
 docker run --rm wishlist-api:lab05-local whoami
@@ -145,3 +158,10 @@ Healthcheck теж звертається до loopback, тому був зел�
 Виправлення: повторний up API лише з базовим compose.yaml відновив CMD із --host 0.0.0.0.
 Після виправлення зовнішній GET http://localhost:19000/health повернув 200 і redis=healthy.
 Для slim-образу без ss/netstat використано /proc/1/cmdline та /proc/net/tcp.
+
+## Примітка щодо Docker Compose на Mac
+
+У встановленому Compose 5.0.2 після успішних Watch-перевірок завершення watch через Ctrl+C
+одного разу завершилося upstream panic `close of closed channel`. Код синхронізувався,
+rebuild вимог відпрацював; production стек після цього повторно перевірено через up --wait.
+Це спостереження про CLI на Mac, а не про роботу контейнерів.
