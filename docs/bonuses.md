@@ -31,7 +31,7 @@ api-coverage-python-3.11.9 або api-coverage-python-3.12.12. Розпакув�
 ## Незалежний нічний аудит
 
 [PR №5 від Porchuk](https://github.com/KushOleks/withlist-api/pull/5) додає
-`.github/workflows/dependency-audit.yml`: щодня о **01:17 UTC** та вручну через
+`.github/workflows/dependency-audit.yml`: щодня о **03:17 Europe/Kyiv** та вручну через
 Actions → API dependency audit → Run workflow (main).
 `pip-audit==2.9.0` перевіряє requirements-ci.txt, включно з тестовими залежностями.
 JSON зберігається в артефакті `api-dependency-audit` на 14 днів навіть при вразливостях.
@@ -40,3 +40,10 @@ JSON зберігається в артефакті `api-dependency-audit` на 
 вразливості залишають аудит червоним; помилки не приховуються через continue-on-error.
 Виправлення залежностей потребують окремих змін і перевірки сумісності.
 [Ручний контрольний запуск](https://github.com/KushOleks/withlist-api/actions/runs/43757037989).
+
+## Захист від затримок розкладу (24 листопада 2026)
+
+GitHub може затримувати schedule на години. Автоматичний аудит виконується лише
+між 00:00 та 06:00 за Europe/Kyiv; запізнілий запуск пропускає аудит і пояснює
+це в Summary. Пропуск не означає відсутності вразливостей. Ручний Run workflow
+працює будь-коли. Це не гарантує щоденного виконання або часу доставки листа.
